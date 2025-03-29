@@ -9,7 +9,10 @@ namespace EF_SQL_Dapper_Study.Repositories
         {
             using var db = new AppDbContext();
             var employees = db.Employees
-                .FromSqlRaw("SELECT * FROM march.Employees")
+                .FromSqlRaw(@"SELECT 
+                              Id, FullName, Email, DepartmentId, HireDate, Salary 
+                              FROM march.Employees")
+                .AsNoTracking()
                 .ToList();
 
             return employees;
@@ -19,7 +22,10 @@ namespace EF_SQL_Dapper_Study.Repositories
         {
             using var db = new AppDbContext();
             var employee = db.Employees
-                .FromSqlInterpolated($@"SELECT * FROM march.Employees WHERE FullName LIKE {"%" + name + "%"}")
+                .FromSqlInterpolated($@"SELECT 
+                                        Id, FullName, Email, DepartmentId, HireDate, Salary 
+                                        FROM march.Employees 
+                                        WHERE FullName LIKE {"%" + name + "%"}")
                 .AsNoTracking()
                 .FirstOrDefault();
 
