@@ -31,6 +31,16 @@ namespace EF_SQL_Dapper_Study.Repositories
 
             return employee!;
         }
+
+        public void Update(Employee employee)
+        {
+            using var db = new AppDbContext();
+            db.Database
+                .ExecuteSqlInterpolated($@"UPDATE march.Employees 
+                                           SET Email = {employee.Email}, 
+                                               Salary = {employee.Salary}
+                                           WHERE Id = {employee.Id}");
+        }
     }
 
     //var deleteEmployee = await db.Employees.FromSqlInterpolated

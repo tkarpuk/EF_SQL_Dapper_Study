@@ -12,7 +12,7 @@ namespace EF_SQL_Dapper_Study
         IEnumerable<Employee> GetAll();
         Employee GetByName(string name);
         //int Add(Employee employee, Payroll payroll);
-        //void Update(Employee employee);
+        void Update(Employee employee);
         //void Delete(int Id);
         //------
         //IEnumerable<FullInfo> GetByDepartment(int departmentId); // using View

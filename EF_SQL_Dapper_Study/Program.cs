@@ -98,7 +98,37 @@ void DeleteEmployee()
 void UpdateEmployee()
 {
     Console.ResetColor();
-    Console.WriteLine("Sorry, but it isn't implemented yet.");
+    Console.WriteLine("\n---------------------------------------------");
+    Console.WriteLine("Enter employee's Name (or part of name)");
+    string input = Console.ReadLine();
+    var employee = empoyeeRepository.GetByName(input);
+    if (employee is null)
+    {
+        Console.WriteLine("Nobody found...");
+        return;
+    }
+
+    Console.WriteLine($"{employee.Id}\t{employee.FullName}\t{employee.Email}\t{employee.Salary}");
+
+    Console.WriteLine("Enter new Email...");
+    string newEmail = Console.ReadLine();
+    employee.Email = newEmail;
+
+    Console.WriteLine("Enter new Salary...");
+    string? newSalary = Console.ReadLine();
+    if (decimal.TryParse(newSalary, out var parsedSalary))
+    {
+        employee.Salary = parsedSalary;
+    }
+    else
+    {
+        Console.WriteLine("Invalid salary input. Salary not updated.");
+    }
+
+    empoyeeRepository.Update(employee);
+    Console.WriteLine("Data of the employee updated.");
+    Console.WriteLine("---------------------------------------------\n");
+    ShowAllEmployees();
 }
 
 void SearchEmployee()
