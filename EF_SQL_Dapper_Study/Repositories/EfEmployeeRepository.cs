@@ -14,6 +14,17 @@ namespace EF_SQL_Dapper_Study.Repositories
 
             return employees;
         }
+
+        public Employee GetByName(string name)
+        {
+            using var db = new AppDbContext();
+            var employee = db.Employees
+                .FromSqlInterpolated($@"SELECT * FROM march.Employees WHERE FullName LIKE {"%" + name + "%"}")
+                .AsNoTracking()
+                .FirstOrDefault();
+
+            return employee!;
+        }
     }
 
     //var deleteEmployee = await db.Employees.FromSqlInterpolated

@@ -29,7 +29,7 @@ while (running)
     Console.Clear();
     Console.WriteLine("\n========= M E N U =========\n");
     Console.WriteLine("1. Show all Employees");
-    Console.WriteLine("2. Add Employee");
+    Console.WriteLine("2. Searh Employee");
     Console.WriteLine("3. Update Employee");
     Console.WriteLine("4. Delete Employee");
     Console.WriteLine("---------------------------------");
@@ -47,7 +47,7 @@ while (running)
             ShowAllEmployees();
             break;
         case "2":
-            AddEmployee();
+            SearchEmployee();
             break;
         case "3":
             UpdateEmployee();
@@ -101,10 +101,21 @@ void UpdateEmployee()
     Console.WriteLine("Sorry, but it isn't implemented yet.");
 }
 
-void AddEmployee()
+void SearchEmployee()
 {
     Console.ResetColor();
-    Console.WriteLine("Sorry, but it isn't implemented yet.");
+    Console.WriteLine("\n---------------------------------------------");
+    Console.WriteLine("Enter employee's Name (or part of name)");
+    string input = Console.ReadLine();
+    var employee = empoyeeRepository.GetByName(input);
+    if (employee is null)
+    {
+        Console.WriteLine("Nobody found...");
+        return;
+    }
+
+    Console.WriteLine($"{employee.Id}\t{employee.FullName}\t{employee.Email}");
+    Console.WriteLine("---------------------------------------------\n");
 }
 
 void ShowAllEmployees()
