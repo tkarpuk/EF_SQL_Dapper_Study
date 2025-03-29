@@ -1,16 +1,27 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
 using EF_SQL_Dapper_Study;
-using EF_SQL_Dapper_Study.Models;
-using Microsoft.EntityFrameworkCore;
+using EF_SQL_Dapper_Study.Repositories;
+
+IEmpoyeeRepository empoyeeRepository = GetRepository();
+
+IEmpoyeeRepository GetRepository()
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("\n========= Select type of DB access =========\n");
+    Console.WriteLine("1. Use Entity Framework Core");
+    //Console.WriteLine("2. Use Dapper");
+    Console.WriteLine("-----------------------------------------------\n");
+
+    Console.Write("Choose an option: ");
+    string input = Console.ReadLine();
+
+    //if (input == 2)
+
+    return new EfEmployeeRepository();
+}
 
 bool running = true;
-//Employee GetByName(string name);
-//int Add(Employee employee, Payroll payroll);
-//void Update(Employee employee);
-//void Delete(int Id);
-//------
-//IEnumerable<FullInfo> GetByDepartment(int departmentId); // using View
-//IEnumerable<Report> GetSalaryReport(); // using Window Function
 
 while (running)
 {
