@@ -11,7 +11,7 @@ IEmpoyeeRepository GetRepository()
     Console.WriteLine("\n========= Select type of DB access =========\n");
     Console.WriteLine("1. Use Entity Framework Core");
     //Console.WriteLine("2. Use Dapper");
-    Console.WriteLine("-----------------------------------------------\n");
+    Console.WriteLine("---------------------------------------------\n");
 
     Console.Write("Choose an option: ");
     string input = Console.ReadLine();
@@ -110,5 +110,13 @@ void AddEmployee()
 void ShowAllEmployees()
 {
     Console.ResetColor();
-    Console.WriteLine("Sorry, but it isn't implemented yet.");
+    Console.WriteLine("\n---------------------------------------------");
+
+    var employees = empoyeeRepository.GetAll();
+    foreach (var employee in employees)
+    {
+        Console.WriteLine($"{employee.Id}\t{employee.FullName}\t{employee.Email}");
+    }
+    
+    Console.WriteLine("---------------------------------------------\n");
 }
