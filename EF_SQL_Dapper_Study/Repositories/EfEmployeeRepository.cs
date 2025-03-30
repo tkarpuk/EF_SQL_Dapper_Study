@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_SQL_Dapper_Study.Repositories
 {
-    public class EfEmployeeRepository : IEmpoyeeRepository
+    public class EfEmployeeRepository : IEmployeeRepository
     {
         public IEnumerable<Employee> GetAll()
         {

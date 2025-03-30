@@ -7,7 +7,7 @@ namespace EF_SQL_Dapper_Study
     // TODO: create View for employee by department and GetEmployeesByDept - form this view
     // TODO: report max, min, avg salary by department (using SP and Window functions)
 
-    public interface IEmpoyeeRepository
+    public interface IEmployeeRepository
     {
         IEnumerable<Employee> GetAll();
         Employee GetByName(string name);

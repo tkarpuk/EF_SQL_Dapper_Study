@@ -3,9 +3,9 @@
 using EF_SQL_Dapper_Study;
 using EF_SQL_Dapper_Study.Repositories;
 
-IEmpoyeeRepository empoyeeRepository = GetRepository();
+IEmployeeRepository empoyeeRepository = GetRepository();
 
-IEmpoyeeRepository GetRepository()
+IEmployeeRepository GetRepository()
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("\n========= Select type of DB access =========\n");
