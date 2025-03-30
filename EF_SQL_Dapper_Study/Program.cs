@@ -86,7 +86,22 @@ void PrintSalaryReport()
 void ShowDepartment()
 {
     Console.ResetColor();
-    Console.WriteLine("Sorry, but it isn't implemented yet.");
+    Console.WriteLine("\n---------------------------------------------");
+    Console.WriteLine("Enter Department ID (1, 2, 3 ...)");
+    string input = Console.ReadLine();
+    if (!int.TryParse(input, out var departmentId))
+    {
+        Console.WriteLine("Invalid department ID input.");
+        Console.WriteLine("\nPress Enter to continue...");
+        Console.ReadLine();
+        return;
+    }
+
+    var departmentEmpoyees = empoyeeRepository.GetByDepartment(departmentId);
+    foreach (var department in departmentEmpoyees)
+    {
+        Console.WriteLine($"{department.Id}\t{department.Name}\t{department.EmployeeFullName}\t{department.Email}");
+    }
 }
 
 void DeleteEmployee()

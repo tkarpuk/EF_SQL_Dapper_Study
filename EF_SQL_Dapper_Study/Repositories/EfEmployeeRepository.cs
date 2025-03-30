@@ -23,8 +23,8 @@ namespace EF_SQL_Dapper_Study.Repositories
             using var db = new AppDbContext();
             var departmentEmployees = db.DepartmentEmployees
                 .FromSqlInterpolated(@$"SELECT 
-                                        Id, Name, FullName, Email, HireDate 
-                                        FROM march.Employees
+                                        Id, Name, EmployeeFullName, Email, HireDate 
+                                        FROM march.View_DepartmentEmployees
                                         WHERE Id = {departmentId}")
                 .AsNoTracking()
                 .ToList();
