@@ -10,8 +10,8 @@ internal class PayrollFactory
         var faker = new Faker<Payroll>()
             .RuleFor(p => p.Month, f => f.Date.Recent(100).Month)
             .RuleFor(p => p.Year, f => f.Date.Recent(400).Year)
-            .RuleFor(p => p.Bonus, f => f.Finance.Amount(140, 300))
-            .RuleFor(p => p.Deductions, f => f.Finance.Amount(10, 50));
+            .RuleFor(p => p.Bonus, f => f.Finance.Amount(1_000, 1_600, 0))
+            .RuleFor(p => p.Deductions, f => f.Finance.Amount(200, 300, 0));
 
         return faker.Generate();
     }
