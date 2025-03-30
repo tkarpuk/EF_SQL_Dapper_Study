@@ -14,7 +14,7 @@ namespace EF_SQL_Dapper_Study.Repositories
             {
                 // Add Employee and get Id
                 var result = db.Set<ResultId> ()
-                    .FromSqlInterpolated($@"
+                    .FromSql($@"
                      INSERT INTO march.Employees
                      (FullName, Email, DepartmentId, HireDate, Salary)
                      OUTPUT INSERTED.Id
@@ -32,7 +32,7 @@ namespace EF_SQL_Dapper_Study.Repositories
 
                 // add payroll
                 db.Database
-                    .ExecuteSqlInterpolated($@"
+                    .ExecuteSql($@"
                      INSERT INTO march.Payroll
                      (EmployeeId, Month, Year, Bonus, Deductions)
                      VALUES
@@ -52,7 +52,7 @@ namespace EF_SQL_Dapper_Study.Repositories
         {
             using var db = new AppDbContext();
             var employees = db.Employees
-                .FromSqlRaw(@"SELECT 
+                .FromSql(@$"SELECT 
                               Id, FullName, Email, DepartmentId, HireDate, Salary 
                               FROM march.Employees")
                 .AsNoTracking()
@@ -65,7 +65,7 @@ namespace EF_SQL_Dapper_Study.Repositories
         {
             using var db = new AppDbContext();
             var departmentEmployees = db.DepartmentEmployees
-                .FromSqlInterpolated(@$"SELECT 
+                .FromSql(@$"SELECT 
                                         Id, Name, EmployeeFullName, Email, HireDate 
                                         FROM march.View_DepartmentEmployees
                                         WHERE Id = {departmentId}")
@@ -79,7 +79,7 @@ namespace EF_SQL_Dapper_Study.Repositories
         {
             using var db = new AppDbContext();
             var employee = db.Employees
-                .FromSqlInterpolated($@"SELECT 
+                .FromSql($@"SELECT 
                                         Id, FullName, Email, DepartmentId, HireDate, Salary 
                                         FROM march.Employees 
                                         WHERE FullName LIKE {"%" + name + "%"}")
@@ -93,7 +93,7 @@ namespace EF_SQL_Dapper_Study.Repositories
         {
             using var db = new AppDbContext();
             db.Database
-                .ExecuteSqlInterpolated($@"UPDATE march.Employees 
+                .ExecuteSql($@"UPDATE march.Employees 
                                            SET Email = {employee.Email}, 
                                                Salary = {employee.Salary}
                                            WHERE Id = {employee.Id}");
