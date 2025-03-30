@@ -15,7 +15,7 @@ namespace EF_SQL_Dapper_Study
         void Update(Employee employee);
         //void Delete(int Id);
         //------
-        //IEnumerable<FullInfo> GetByDepartment(int departmentId); // using View
+        IEnumerable<DepartmentEmployees> GetByDepartment(int departmentId); // using View
         //IEnumerable<Report> GetSalaryReport(); // using Window Function
     }
 }

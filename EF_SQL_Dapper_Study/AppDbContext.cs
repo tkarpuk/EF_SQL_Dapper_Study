@@ -11,6 +11,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Payroll> Payrolls { get; set; }
 
+    public virtual DbSet<DepartmentEmployees> DepartmentEmployees { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EF_Dapper;Trusted_Connection=True;");
 }

@@ -18,6 +18,20 @@ namespace EF_SQL_Dapper_Study.Repositories
             return employees;
         }
 
+        public IEnumerable<DepartmentEmployees> GetByDepartment(int departmentId)
+        {
+            using var db = new AppDbContext();
+            var departmentEmployees = db.DepartmentEmployees
+                .FromSqlInterpolated(@$"SELECT 
+                                        Id, Name, FullName, Email, HireDate 
+                                        FROM march.Employees
+                                        WHERE Id = {departmentId}")
+                .AsNoTracking()
+                .ToList();
+
+            return departmentEmployees;
+        }
+
         public Employee GetByName(string name)
         {
             using var db = new AppDbContext();
