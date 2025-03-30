@@ -2,19 +2,42 @@
 
 namespace EF_SQL_Dapper_Study
 {
-    // TODO: add new employee + payroll (by Stored Procedure)
-    // TODO: add department + 5 employee by transaction
-    // TODO: report max, min, avg salary by department (using SP and Window functions)
-
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> GetAll(); // using SELECT
-        Employee GetByName(string name); // using LIKE
-        void AddEmployee(int departmentId, Employee employee, Payroll payroll); // using Transaction
-        void Update(Employee employee); // using UPDATE
-        //void Delete(int Id); // using Stored Procedure - for delete in PayRoll too
-        //------
-        IEnumerable<DepartmentEmployees> GetByDepartment(int departmentId); // using VIEW
-        //IEnumerable<Report> GetSalaryReport(); // using Window Function
+        /// <summary>
+        /// using SELECT
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Employee> GetAll();
+        /// <summary>
+        /// using LIKE
+        /// </summary>
+        /// <param name="name">A part of Employee name</param>
+        /// <returns></returns>
+        Employee GetByName(string name);
+        /// <summary>
+        /// using Transaction
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <param name="employee">Generated Employee object</param>
+        /// <param name="payroll">Generated Payroll object</param>
+        void AddEmployee(int departmentId, Employee employee, Payroll payroll);
+        /// <summary>
+        /// using UPDATE
+        /// </summary>
+        /// <param name="employee">Generated Employee object</param>
+        void Update(Employee employee);
+        /// <summary>
+        /// using VIEW
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        IEnumerable<DepartmentEmployees> GetByDepartment(int departmentId);
+        /// <summary>
+        /// using stored procedure, CTE, Window Function
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        IEnumerable<SalaryReport> GetSalaryReport(int departmentId);
     }
 }

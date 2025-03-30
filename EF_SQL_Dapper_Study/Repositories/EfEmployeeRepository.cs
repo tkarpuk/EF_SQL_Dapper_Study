@@ -89,6 +89,11 @@ namespace EF_SQL_Dapper_Study.Repositories
             return employee!;
         }
 
+        public IEnumerable<SalaryReport> GetSalaryReport(int departmentId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Employee employee)
         {
             using var db = new AppDbContext();
