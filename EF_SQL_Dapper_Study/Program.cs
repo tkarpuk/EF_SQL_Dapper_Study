@@ -81,7 +81,22 @@ while (running)
 void PrintSalaryReport()
 {
     Console.ResetColor();
-    Console.WriteLine("Sorry, but it isn't implemented yet.");
+    Console.WriteLine("\n---------------------------------------------");
+    Console.WriteLine("Enter Department ID (1, 2, 3)");
+    string? input = Console.ReadLine();
+    if (!int.TryParse(input, out var departmentId))
+    {
+        Console.WriteLine("Invalid Department Id input");
+        return;
+    }
+
+    var report = empoyeeRepository.GetSalaryReport(departmentId);
+    Console.WriteLine($"Name\tSalary\tRunk in Dept\tAVG Salary");
+    foreach (var employee in report)
+    {
+        Console.WriteLine($"{employee.FullName}\t{employee.Salary:0.##}\t{employee.RunkSalaryInDept}\t{employee.AvgDeptSalary:0.##}");
+    }
+    Console.WriteLine("---------------------------------------------\n");
 }
 
 void ShowDepartment()

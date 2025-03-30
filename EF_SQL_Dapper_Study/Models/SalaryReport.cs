@@ -10,9 +10,8 @@
         public decimal Salary { get; set; }
         public decimal FullEarn { get; set; }
         public decimal AvgDeptExtra { get; set; }
-        public int RunkExtraInDept { get; set; }
+        public long RunkExtraInDept { get; set; }
         public decimal AvgDeptSalary { get; set; }
-        public int RunkSalaryInDept { get; set; }
-        public decimal MyProperty { get; set; }
+        public long RunkSalaryInDept { get; set; }
     }
 }

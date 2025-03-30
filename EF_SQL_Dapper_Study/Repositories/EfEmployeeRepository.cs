@@ -91,7 +91,12 @@ namespace EF_SQL_Dapper_Study.Repositories
 
         public IEnumerable<SalaryReport> GetSalaryReport(int departmentId)
         {
-            throw new NotImplementedException();
+            using var db = new AppDbContext();
+            var report = db.SalaryReports.FromSql($@"EXEC march.sp_SalaryReportByDepartament @DeptId = {departmentId}")
+                .AsNoTracking()
+                .ToList();
+
+            return report;
         }
 
         public void Update(Employee employee)
