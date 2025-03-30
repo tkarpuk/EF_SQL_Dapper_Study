@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using EF_SQL_Dapper_Study;
+using EF_SQL_Dapper_Study.Models;
 using EF_SQL_Dapper_Study.Repositories;
 
 IEmployeeRepository empoyeeRepository = GetRepository();
@@ -31,7 +32,7 @@ while (running)
     Console.WriteLine("1. Show all Employees");
     Console.WriteLine("2. Searh Employee");
     Console.WriteLine("3. Update Employee");
-    Console.WriteLine("4. Delete Employee");
+    Console.WriteLine("4. Add Employees");
     Console.WriteLine("---------------------------------");
     Console.WriteLine("5. Show Employees in Department");
     Console.WriteLine("6. Print salary report");
@@ -53,7 +54,7 @@ while (running)
             UpdateEmployee();
             break;
         case "4":
-            DeleteEmployee();
+            AddEmployees();
             break;
         case "5":
             ShowDepartment();
@@ -87,7 +88,7 @@ void ShowDepartment()
 {
     Console.ResetColor();
     Console.WriteLine("\n---------------------------------------------");
-    Console.WriteLine("Enter Department ID (1, 2, 3 ...)");
+    Console.WriteLine("Enter Department ID (1, 2, 3)");
     string input = Console.ReadLine();
     if (!int.TryParse(input, out var departmentId))
     {
@@ -104,10 +105,45 @@ void ShowDepartment()
     }
 }
 
-void DeleteEmployee()
+void AddEmployees()
 {
     Console.ResetColor();
-    Console.WriteLine("Sorry, but it isn't implemented yet.");
+    Console.WriteLine("\n---------------------------------------------");
+    Console.WriteLine("Enter department ID (1, 2, 3)");
+    string? input = Console.ReadLine();
+    if (!int.TryParse(input, out var departmentId))
+    {
+        Console.WriteLine("Invalid Department Id input");
+        return;
+    }
+
+    Console.WriteLine("Enter count of new Employees (1-5)");
+    input = Console.ReadLine();
+    if (!int.TryParse(input, out int countEmployees))
+    {
+        countEmployees = 5;
+        Console.WriteLine($"Invalid count. Will be added {countEmployees} Employees.");
+    }
+    try
+    {
+        for (int i = 0; i < countEmployees; i++)
+        {
+            var newEmployee = EmployeeFactory.Create();
+            var newPayroll = PayrollFactory.Create();
+
+            empoyeeRepository.AddEmployee(departmentId, newEmployee, newPayroll);
+        }
+
+    }
+    catch (Exception e)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"ERROR! Message: {e.Message}");
+        return;
+    }
+
+    Console.WriteLine($"Added {countEmployees} Employees in Department ID = {departmentId}.");
+    Console.WriteLine("---------------------------------------------\n");
 }
 
 void UpdateEmployee()
