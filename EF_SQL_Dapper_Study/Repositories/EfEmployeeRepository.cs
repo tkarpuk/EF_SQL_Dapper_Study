@@ -67,9 +67,9 @@ namespace EF_SQL_Dapper_Study.Repositories
             using var db = new AppDbContext(_connectionString);
             var departmentEmployees = db.DepartmentEmployees
                 .FromSql(@$"SELECT 
-                                        Id, Name, EmployeeFullName, Email, HireDate 
-                                        FROM march.View_DepartmentEmployees
-                                        WHERE Id = {departmentId}")
+                            Id, Name, EmployeeFullName, Email, HireDate 
+                            FROM march.View_DepartmentEmployees
+                            WHERE Id = {departmentId}")
                 .AsNoTracking()
                 .ToList();
 
@@ -81,9 +81,9 @@ namespace EF_SQL_Dapper_Study.Repositories
             using var db = new AppDbContext(_connectionString);
             var employee = db.Employees
                 .FromSql($@"SELECT 
-                                        Id, FullName, Email, DepartmentId, HireDate, Salary 
-                                        FROM march.Employees 
-                                        WHERE FullName LIKE {"%" + name + "%"}")
+                            Id, FullName, Email, DepartmentId, HireDate, Salary 
+                            FROM march.Employees 
+                            WHERE FullName LIKE {"%" + name + "%"}")
                 .AsNoTracking()
                 .FirstOrDefault();
 
@@ -105,9 +105,9 @@ namespace EF_SQL_Dapper_Study.Repositories
             using var db = new AppDbContext(_connectionString);
             db.Database
                 .ExecuteSql($@"UPDATE march.Employees 
-                                           SET Email = {employee.Email}, 
-                                               Salary = {employee.Salary}
-                                           WHERE Id = {employee.Id}");
+                                SET Email = {employee.Email}, 
+                                    Salary = {employee.Salary}
+                                WHERE Id = {employee.Id}");
         }
     }
 }
