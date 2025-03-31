@@ -26,7 +26,7 @@ IEmployeeRepository GetRepository()
     if (repoType == 2)
        return new DapperEmployeeRepositrory(connectionString);
 
-    return new EfEmployeeRepository();
+    return new EfEmployeeRepository(connectionString);
 }
 
 bool running = true;

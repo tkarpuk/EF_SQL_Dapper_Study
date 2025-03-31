@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_SQL_Dapper_Study.Repositories
 {
-    public class EfEmployeeRepository : IEmployeeRepository
+    public class EfEmployeeRepository(string connectionString) : IEmployeeRepository
     {
+        private readonly string _connectionString = connectionString;
         public void AddEmployee(int departmentId, Employee employee, Payroll payroll)
         {
-            using var db = new AppDbContext();
+            using var db = new AppDbContext(_connectionString);
             using var transaction = db.Database.BeginTransaction();
 
             try
@@ -50,7 +51,7 @@ namespace EF_SQL_Dapper_Study.Repositories
 
         public IEnumerable<Employee> GetAll()
         {
-            using var db = new AppDbContext();
+            using var db = new AppDbContext(_connectionString);
             var employees = db.Employees
                 .FromSql(@$"SELECT 
                               Id, FullName, Email, DepartmentId, HireDate, Salary 
@@ -63,7 +64,7 @@ namespace EF_SQL_Dapper_Study.Repositories
 
         public IEnumerable<DepartmentEmployees> GetByDepartment(int departmentId)
         {
-            using var db = new AppDbContext();
+            using var db = new AppDbContext(_connectionString);
             var departmentEmployees = db.DepartmentEmployees
                 .FromSql(@$"SELECT 
                                         Id, Name, EmployeeFullName, Email, HireDate 
@@ -77,7 +78,7 @@ namespace EF_SQL_Dapper_Study.Repositories
 
         public Employee GetByName(string name)
         {
-            using var db = new AppDbContext();
+            using var db = new AppDbContext(_connectionString);
             var employee = db.Employees
                 .FromSql($@"SELECT 
                                         Id, FullName, Email, DepartmentId, HireDate, Salary 
@@ -91,7 +92,7 @@ namespace EF_SQL_Dapper_Study.Repositories
 
         public IEnumerable<SalaryReport> GetSalaryReport(int departmentId)
         {
-            using var db = new AppDbContext();
+            using var db = new AppDbContext(_connectionString);
             var report = db.SalaryReports.FromSql($@"EXEC march.sp_SalaryReportByDepartament @DeptId = {departmentId}")
                 .AsNoTracking()
                 .ToList();
@@ -101,7 +102,7 @@ namespace EF_SQL_Dapper_Study.Repositories
 
         public void Update(Employee employee)
         {
-            using var db = new AppDbContext();
+            using var db = new AppDbContext(_connectionString);
             db.Database
                 .ExecuteSql($@"UPDATE march.Employees 
                                            SET Email = {employee.Email}, 

@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_SQL_Dapper_Study;
 
-public partial class AppDbContext : DbContext
+public partial class AppDbContext(string connectionString) : DbContext
 {
+    private readonly string _connectionString = connectionString;
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
@@ -16,5 +17,5 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<SalaryReport> SalaryReports { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EF_Dapper;Trusted_Connection=True;");
+        => optionsBuilder.UseSqlServer(_connectionString);
 }
