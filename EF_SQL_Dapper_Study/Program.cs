@@ -11,16 +11,22 @@ IEmployeeRepository GetRepository()
 
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("\n========= Select type of DB access =========\n");
-    Console.WriteLine("1. Use Entity Framework Core");
+    Console.WriteLine("1. Use Entity Framework Core (default)");
     Console.WriteLine("2. Use Dapper");
     Console.WriteLine("---------------------------------------------\n");
 
     Console.Write("Choose an option: ");
     string input = Console.ReadLine();
 
-    //if (input == 2)
+    if (!int.TryParse(input, out var repoType))
+    {
+        repoType = 1;
+    }
 
-    return new DapperEmployeeRepositrory(connectionString);
+    if (repoType == 2)
+       return new DapperEmployeeRepositrory(connectionString);
+
+    return new EfEmployeeRepository();
 }
 
 bool running = true;
