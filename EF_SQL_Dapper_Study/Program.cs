@@ -7,6 +7,8 @@ IEmployeeRepository empoyeeRepository = GetRepository();
 
 IEmployeeRepository GetRepository()
 {
+    string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=EF_Dapper;Trusted_Connection=True;";
+
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("\n========= Select type of DB access =========\n");
     Console.WriteLine("1. Use Entity Framework Core");
@@ -18,7 +20,7 @@ IEmployeeRepository GetRepository()
 
     //if (input == 2)
 
-    return new DapperEmployeeRepositrory();
+    return new DapperEmployeeRepositrory(connectionString);
 }
 
 bool running = true;
