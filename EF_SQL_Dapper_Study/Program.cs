@@ -1,7 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using EF_SQL_Dapper_Study;
-using EF_SQL_Dapper_Study.Models;
 using EF_SQL_Dapper_Study.Repositories;
 
 IEmployeeRepository empoyeeRepository = GetRepository();
@@ -11,7 +10,7 @@ IEmployeeRepository GetRepository()
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("\n========= Select type of DB access =========\n");
     Console.WriteLine("1. Use Entity Framework Core");
-    //Console.WriteLine("2. Use Dapper");
+    Console.WriteLine("2. Use Dapper");
     Console.WriteLine("---------------------------------------------\n");
 
     Console.Write("Choose an option: ");
@@ -19,7 +18,7 @@ IEmployeeRepository GetRepository()
 
     //if (input == 2)
 
-    return new EfEmployeeRepository();
+    return new DapperEmployeeRepositrory();
 }
 
 bool running = true;
